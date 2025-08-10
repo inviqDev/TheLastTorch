@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _isMoving;
     private Vector3 _moveDirection;
 
-    
-
     private void Awake()
     {
         _movementComponent = GetComponent<Movement>();
