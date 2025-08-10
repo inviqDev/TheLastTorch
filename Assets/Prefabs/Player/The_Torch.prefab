@@ -134,7 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc1b3cf685025345ba6b911d7120f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 12
 --- !u!1 &4642020682833649928
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +149,7 @@ GameObject:
   - component: {fileID: 8909028771436365901}
   m_Layer: 6
   m_Name: The_Torch
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,3 +256,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3d2d6232d428847955e18d10615075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 10

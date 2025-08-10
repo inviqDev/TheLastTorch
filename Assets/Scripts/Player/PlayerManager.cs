@@ -8,20 +8,14 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask targetMask;
     
+    [Header("Light source settings")]
     [SerializeField] private LightSource lightSource;
 
     private Input_Actions _inputActions;
-    
-    protected override void Awake()
-    {
-        base.Awake();
-        
-        lightSource.enabled = false;
-    }
 
     private void Start()
     {
-        lightSource.enabled = true;
+        lightSource.TurnOnTorch();
     }
 
     private void OnEnable()
@@ -30,21 +24,28 @@ public class PlayerManager : Singleton<PlayerManager>
         
         _inputActions.Player.ThrowTorch.performed += OnThrowTorchPerformed;
         _inputActions.Enable();
-        
-        lightSource.enabled = true;
     }
 
     private void OnThrowTorchPerformed(InputAction.CallbackContext ctx)
     {
         var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (!Physics.Raycast(ray, out var hit, 100.0f, targetMask)) return;
-        
-        var targetDirection = (hit.transform.position - torchMovement.transform.position).normalized;
-        torchMovement.LaunchByPlayerClick(targetDirection);
+        torchMovement.LaunchTorch(hit.transform);
     }
 
     private void OnDisable()
     {
-        lightSource.enabled = false;
+        if (_inputActions == null) return;
+        
+        _inputActions.Player.ThrowTorch.performed -= OnThrowTorchPerformed;
+        _inputActions.Enable();
+    }
+
+    private void OnDestroy()
+    {
+        if (_inputActions == null) return;
+        
+        _inputActions.Player.ThrowTorch.performed -= OnThrowTorchPerformed;
+        _inputActions.Enable();
     }
 }

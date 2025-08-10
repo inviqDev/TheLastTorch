@@ -626,13 +626,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 5610436715758520253, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7552719555926705858, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7552719555926705858, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8655560174984194623, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
       propertyPath: m_Enabled
