@@ -630,46 +630,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4093805890726465833, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874060567991208444, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874060567991208444, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874060567991208444, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001719641287213880, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001719641287213880, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_Range
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001719641287213880, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_Intensity
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001719641287213880, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_SpotAngle
-      value: 179
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001719641287213880, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_InnerSpotAngle
-      value: 170
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001719641287213880, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
-      propertyPath: m_ColorTemperature
-      value: 3000
-      objectReference: {fileID: 0}
     - target: {fileID: 7552719555926705858, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
       propertyPath: m_Name
       value: Player
