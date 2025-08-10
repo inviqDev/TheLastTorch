@@ -1,26 +1,35 @@
-using Fog_of_War;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class LightSource : MonoBehaviour
 {
-    [Min(0f)] [SerializeField] public float radius = 12.0f;
-    public bool IsLightOn { get; private set; } = true;
+    public float Radius { get; private set; } = 12.0f;
+    
+    public bool IsLightOn { get; private set; }
 
     private void Awake()
     {
-        enabled = false;
+        TurnOffTorch();
     }
 
-    private void OnEnable()
+    // private void OnEnable()
+    // {
+    //     if (FogOfWarController.Instance)
+    //         FogOfWarController.Instance.Register(this);
+    // }
+
+    public void TurnOnTorch()
     {
+        IsLightOn = true;
+        
         if (FogOfWarController.Instance)
             FogOfWarController.Instance.Register(this);
     }
-
-    private void OnDisable()
+    public void TurnOffTorch()
     {
         if (FogOfWarController.Instance)
             FogOfWarController.Instance.Unregister(this);
+        
+        IsLightOn = false;
     }
 }

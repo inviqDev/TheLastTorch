@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2528104786353141733}
   - component: {fileID: 4144666281575265341}
-  m_Layer: 0
+  - component: {fileID: 1456704067199781427}
+  - component: {fileID: 702436241405993260}
+  m_Layer: 7
   m_Name: Temp_GroundTorch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1023113944604938897}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53,8 +55,50 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.25, y: 1.8, z: 1.25}
-  m_Center: {x: 0, y: 1.4, z: 0}
+  m_Size: {x: 1.25, y: 2.5, z: 1.25}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &1456704067199781427
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023113944604938897}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
+--- !u!114 &702436241405993260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023113944604938897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1892e0e0cd302754c900e37583bf142f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torchTag: Torch
+  torchSpotLight: {fileID: 2895300697561552291}
+  lightSource: {fileID: 8680133359553068562}
 --- !u!1 &2252306750412551452
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,7 +110,7 @@ GameObject:
   - component: {fileID: 8689164467366968056}
   - component: {fileID: 5900338111821319285}
   - component: {fileID: 1259103552343759279}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +196,7 @@ GameObject:
   - component: {fileID: 4448736794092735538}
   - component: {fileID: 9140484337007714861}
   - component: {fileID: 3098945089138903405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +284,7 @@ GameObject:
   - component: {fileID: 2895300697561552291}
   - component: {fileID: 4124947301803958533}
   - component: {fileID: 8680133359553068562}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,9 +401,8 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8271747415474105996}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cc1b3cf685025345ba6b911d7120f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 12

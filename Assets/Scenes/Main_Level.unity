@@ -626,13 +626,29 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 5610436715758520253, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7552719555926705858, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7552719555926705858, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8655560174984194623, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953397044351795761, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
+      propertyPath: throwSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953397044351795761, guid: 6bcd8fdca3f7a684d9b4287ec30a2750, type: 3}
+      propertyPath: targetMask.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
