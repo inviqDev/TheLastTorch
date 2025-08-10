@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1184154139830494343}
   - component: {fileID: 1445873608989450866}
   - component: {fileID: 7082973095521850834}
+  - component: {fileID: 6166930260244588810}
   m_Layer: 6
   m_Name: Spot Light
   m_TagString: Untagged
@@ -121,6 +122,19 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &6166930260244588810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4203027267355165209}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc1b3cf685025345ba6b911d7120f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 12
 --- !u!1 &4642020682833649928
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +147,7 @@ GameObject:
   - component: {fileID: 6205325488768044493}
   - component: {fileID: 4222778602352567125}
   - component: {fileID: 4975090826903610358}
+  - component: {fileID: 8909028771436365901}
   m_Layer: 6
   m_Name: The_Torch
   m_TagString: Untagged
@@ -230,3 +245,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1.25, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8909028771436365901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642020682833649928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3d2d6232d428847955e18d10615075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2528104786353141733}
   - component: {fileID: 4144666281575265341}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Temp_GroundTorch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 8689164467366968056}
   - component: {fileID: 5900338111821319285}
   - component: {fileID: 1259103552343759279}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 4448736794092735538}
   - component: {fileID: 9140484337007714861}
   - component: {fileID: 3098945089138903405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 2895300697561552291}
   - component: {fileID: 4124947301803958533}
   - component: {fileID: 8680133359553068562}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
