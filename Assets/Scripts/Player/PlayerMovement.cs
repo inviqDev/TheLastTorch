@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Movement))]
-public class PlayerMovement : MonoBehaviour
+using Interfaces;
+
+[RequireComponent(typeof(CharacterController))]
+public class PlayerMovement : MonoBehaviour, IMovable
 {
     [Header("Movement settings")]
-    [SerializeField] private float speed;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float gravity = -15.0f;
     
     [Header("Dash settings")]
@@ -17,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDashing;
     private bool _dashOnCooldown;
     
-    private Movement _movementComponent;
+    private CharacterController _controller;
     private Input_Actions _inputActions;
     
     private bool _isMoving;
@@ -25,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _movementComponent = GetComponent<Movement>();
+        _controller = GetComponent<CharacterController>();
     }
 
     private void OnEnable()
@@ -38,7 +40,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isMoving || _isDashing) return;
         
-        _movementComponent.MoveInDirection(_moveDirection * speed);
+        MoveInDirection(_moveDirection);
+    }
+    
+    public void MoveInDirection(Vector3 direction)
+    {
+        _controller.Move(direction * moveSpeed);
     }
 
     private void SingOnInputActions()
@@ -65,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         _moveDirection = new Vector3(input.x, gravity, input.y).normalized;
     }
     
-    private void OnMoveCanceled(InputAction.CallbackContext obj)
+    private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
         _isMoving = false;
         _moveDirection = Vector3.zero;
@@ -77,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DashRoutine(_moveDirection));
     }
     
-    private IEnumerator DashRoutine(Vector3 dashDir)
+    private IEnumerator DashRoutine(Vector3 dashDirection)
     {
         _isDashing = true;
         _dashOnCooldown = true;
@@ -85,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         var time = 0f;
         while (time < dashDuration)
         {
-            _movementComponent.MoveInDirection(dashDir * dashSpeed);
+            MoveInDirection(dashDirection * dashSpeed);
             time += Time.deltaTime;
             
             yield return null;
