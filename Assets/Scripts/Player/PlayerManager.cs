@@ -13,6 +13,15 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private Input_Actions _inputActions;
 
+    public bool PlayerIsAlive { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+        PlayerIsAlive = true;
+    }
+
     private void Start()
     {
         lightSource.TurnOnTorch();
