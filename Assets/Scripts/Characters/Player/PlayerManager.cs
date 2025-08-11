@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
+    [SerializeField] private PlayerModel playerModel;
+    public PlayerModel PlayerModel => playerModel;
+    
     [Header("Torch throwing settings")]
     [SerializeField] private TorchMovement torchMovement;
     [SerializeField] private Camera mainCamera;
@@ -12,6 +15,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private LightSource lightSource;
 
     private Input_Actions _inputActions;
+    public Input_Actions InputActions => _inputActions ??= new Input_Actions();
 
     public bool PlayerIsAlive { get; private set; }
 
@@ -20,11 +24,12 @@ public class PlayerManager : Singleton<PlayerManager>
         base.Awake();
         
         PlayerIsAlive = true;
+        _inputActions ??= new Input_Actions();
     }
 
     private void Start()
     {
-        lightSource.TurnOnTorch();
+        lightSource.TurnOnLights();
     }
 
     private void OnEnable()

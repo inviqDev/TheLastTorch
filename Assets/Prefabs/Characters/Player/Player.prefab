@@ -59,13 +59,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2602731291215589266}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalPosition: {x: 0, y: -12, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3280165859691704818}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!20 &3812439558993950436
 Camera:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 3308007682270084550}
   m_Layer: 6
   m_Name: Torch_Root
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 2650833356816360755}
   m_Layer: 6
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -323,10 +323,11 @@ GameObject:
   - component: {fileID: 4093805890726465833}
   - component: {fileID: 3663935231212881165}
   - component: {fileID: 1609403415229987261}
+  - component: {fileID: 8626854630356344034}
   - component: {fileID: 4854030337034112084}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,12 +386,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b596c0add899ac46b7720a26560ef34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 8626854630356344034}
   torchMovement: {fileID: 7199613568773777146}
   mainCamera: {fileID: 3812439558993950436}
   targetMask:
     serializedVersion: 2
     m_Bits: 128
-  lightSource: {fileID: 5610436715758520253}
+  lightSource: {fileID: 408696995976980041}
+--- !u!114 &8626854630356344034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552719555926705858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e57da8ab324ea294f1dae8087b23c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  moveSpeed: 10
+  gravity: -15
+  damage: 10
+  dashSpeed: 25
+  dashCooldown: 0.4
+  dashDuration: 0.2
 --- !u!114 &4854030337034112084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,11 +425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de48c77f364a494e86f8fb1872e0d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
-  gravity: -15
-  dashSpeed: 5
-  dashCooldown: 1
-  dashDuration: 0.35
 --- !u!1001 &1749947601482215095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416,6 +433,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3308007682270084550}
     m_Modifications:
+    - target: {fileID: 1065585273832164068, guid: c62541a829021d546993046b2aff8934, type: 3}
+      propertyPath: <Radius>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445873608989450866, guid: c62541a829021d546993046b2aff8934, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 2750
+      objectReference: {fileID: 0}
     - target: {fileID: 2771886958933285109, guid: c62541a829021d546993046b2aff8934, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -460,35 +485,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: The_Torch
       objectReference: {fileID: 0}
-    - target: {fileID: 6166930260244588810, guid: c62541a829021d546993046b2aff8934, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8909028771436365901, guid: c62541a829021d546993046b2aff8934, type: 3}
-      propertyPath: defaultPosition
-      value: 
-      objectReference: {fileID: 4485207626629871170}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7507875501324459514, guid: c62541a829021d546993046b2aff8934, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 408696995976980041}
   m_SourcePrefab: {fileID: 100100000, guid: c62541a829021d546993046b2aff8934, type: 3}
+--- !u!108 &3293291016605729540 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 3890281773390753203, guid: c62541a829021d546993046b2aff8934, type: 3}
+  m_PrefabInstance: {fileID: 1749947601482215095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4485207626629871170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2771886958933285109, guid: c62541a829021d546993046b2aff8934, type: 3}
   m_PrefabInstance: {fileID: 1749947601482215095}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5610436715758520253 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6166930260244588810, guid: c62541a829021d546993046b2aff8934, type: 3}
-  m_PrefabInstance: {fileID: 1749947601482215095}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cc1b3cf685025345ba6b911d7120f7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7199613568773777146 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8909028771436365901, guid: c62541a829021d546993046b2aff8934, type: 3}
@@ -500,3 +514,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3d2d6232d428847955e18d10615075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8104303323205186381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7507875501324459514, guid: c62541a829021d546993046b2aff8934, type: 3}
+  m_PrefabInstance: {fileID: 1749947601482215095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &408696995976980041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104303323205186381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc1b3cf685025345ba6b911d7120f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Radius>k__BackingField: 5
+  lightSource: {fileID: 3293291016605729540}

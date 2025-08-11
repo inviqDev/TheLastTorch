@@ -3,13 +3,19 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class LightSource : MonoBehaviour
 {
-    public float Radius { get; private set; } = 12.0f;
+    [field: SerializeField] public float Radius { get; private set; } = 12.0f;
+    [SerializeField] private Light lightSource;
     
     public bool IsLightOn { get; private set; }
 
     private void Awake()
     {
-        TurnOffTorch();
+        if (TryGetComponent<Light>(out var lightComponent))
+        {
+            lightSource = lightComponent;
+        }
+        
+        TurnOffLights();
     }
 
     // private void OnEnable()
@@ -18,18 +24,22 @@ public class LightSource : MonoBehaviour
     //         FogOfWarController.Instance.Register(this);
     // }
 
-    public void TurnOnTorch()
+    public void TurnOnLights()
     {
         IsLightOn = true;
+        lightSource.enabled = true;
+        enabled = true;
         
         if (FogOfWarController.Instance)
             FogOfWarController.Instance.Register(this);
     }
-    public void TurnOffTorch()
+    public void TurnOffLights()
     {
         if (FogOfWarController.Instance)
             FogOfWarController.Instance.Unregister(this);
         
         IsLightOn = false;
+        lightSource.enabled = false;
+        enabled = false;
     }
 }

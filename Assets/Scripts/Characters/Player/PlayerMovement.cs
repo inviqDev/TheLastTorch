@@ -7,32 +7,25 @@ using Interfaces;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour, IMovable
 {
-    [Header("Movement settings")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float gravity = -15.0f;
-    
-    [Header("Dash settings")]
-    [SerializeField] private float dashSpeed = 18.0f;
-    [SerializeField] private float dashCooldown = 1.0f;
-    [SerializeField] private float dashDuration = 0.5f;
+    private PlayerModel _playerModel;
+    private CharacterController _controller;
+    private Input_Actions _inputActions;
     
     private bool _isDashing;
     private bool _dashOnCooldown;
-    
-    private CharacterController _controller;
-    private Input_Actions _inputActions;
     
     private bool _isMoving;
     private Vector3 _moveDirection;
 
     private void Awake()
     {
+        _playerModel = GetComponent<PlayerModel>();
         _controller = GetComponent<CharacterController>();
     }
-
+    
     private void OnEnable()
     {
-        _inputActions ??= new Input_Actions();
+        _inputActions ??= PlayerManager.Instance.InputActions;
         SingOnInputActions();
     }
 
@@ -40,12 +33,12 @@ public class PlayerMovement : MonoBehaviour, IMovable
     {
         if (!_isMoving || _isDashing) return;
         
-        MoveInDirection(_moveDirection);
+        MoveInDirection(_moveDirection * (_playerModel.MoveSpeed * Time.deltaTime));
     }
     
     public void MoveInDirection(Vector3 direction)
     {
-        _controller.Move(direction * moveSpeed);
+        _controller.Move(direction);
     }
 
     private void SingOnInputActions()
@@ -69,7 +62,7 @@ public class PlayerMovement : MonoBehaviour, IMovable
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
         var input = ctx.ReadValue<Vector2>();
-        _moveDirection = new Vector3(input.x, gravity, input.y).normalized;
+        _moveDirection = new Vector3(input.x, _playerModel.Gravity, input.y);
     }
     
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
@@ -90,9 +83,10 @@ public class PlayerMovement : MonoBehaviour, IMovable
         _dashOnCooldown = true;
 
         var time = 0f;
-        while (time < dashDuration)
+        while (time < _playerModel.DashDuration)
         {
-            MoveInDirection(dashDirection * dashSpeed);
+            
+            MoveInDirection(dashDirection * (_playerModel.DashSpeed * Time.deltaTime));
             time += Time.deltaTime;
             
             yield return null;
@@ -101,7 +95,7 @@ public class PlayerMovement : MonoBehaviour, IMovable
         _isDashing = false;
         
         
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(_playerModel.DashCooldown);
         _dashOnCooldown = false;
     }
 

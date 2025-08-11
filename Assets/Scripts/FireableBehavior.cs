@@ -10,7 +10,7 @@ public class FireableBehavior : MonoBehaviour
     {
         if (!other.gameObject.CompareTag(torchTag)) return;
         
-        lightSource.TurnOnTorch();
+        lightSource.TurnOnLights();
         torchSpotLight.enabled = true;
         
         other.gameObject.GetComponent<TorchMovement>().MoveTorchBackToRoot();
