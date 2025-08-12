@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FireableBehavior : MonoBehaviour
+public class FireableLightSource : MonoBehaviour
 {
     [SerializeField] private string torchTag = "Torch";
     [SerializeField] private LightSource lightSourcePoint;

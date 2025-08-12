@@ -209,6 +209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3308007682270084550}
+  - component: {fileID: 6756723881442535606}
   m_Layer: 6
   m_Name: Torch_Root
   m_TagString: Player
@@ -232,6 +233,27 @@ Transform:
   - {fileID: 4485207626629871170}
   m_Father: {fileID: 1468266853871558928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6756723881442535606
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452070408354465672}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7179073517648363025
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +307,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 50, y: 10, z: 50}
+  m_Size: {x: 120, y: 10, z: 85}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7399964215880456024
 Rigidbody:
@@ -450,6 +472,7 @@ GameObject:
   - component: {fileID: 1609403415229987261}
   - component: {fileID: 8626854630356344034}
   - component: {fileID: 4854030337034112084}
+  - component: {fileID: 2855375463991285476}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -513,12 +536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b596c0add899ac46b7720a26560ef34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 8626854630356344034}
-  torchMovement: {fileID: 7199613568773777146}
-  mainCamera: {fileID: 3812439558993950436}
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 128
   lightSource: {fileID: 8397683411151027433}
 --- !u!114 &8626854630356344034
 MonoBehaviour:
@@ -552,6 +569,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de48c77f364a494e86f8fb1872e0d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2855375463991285476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552719555926705858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce97049fa724ad286c26182e39f7abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 3812439558993950436}
+  fireableMask:
+    serializedVersion: 2
+    m_Bits: 128
+  torchMovement: {fileID: 7199613568773777146}
 --- !u!1001 &1749947601482215095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -647,6 +681,10 @@ PrefabInstance:
     - target: {fileID: 7445038408622734697, guid: c62541a829021d546993046b2aff8934, type: 3}
       propertyPath: radiusDecrement
       value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703093927789197197, guid: c62541a829021d546993046b2aff8934, type: 3}
+      propertyPath: m_Name
+      value: SpotLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

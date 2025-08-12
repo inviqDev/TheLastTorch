@@ -10,9 +10,7 @@ public class LightSourcesDetector : MonoBehaviour
     {
         if (other.gameObject.layer != LayerMask.NameToLayer("Fireable")) return;
         
-        Debug.Log(other.gameObject.name);
-        
-        var fireableBehavior = other.gameObject.GetComponent<FireableBehavior>();
+        var fireableBehavior = other.gameObject.GetComponent<FireableLightSource>();
         fireableBehavior.RegisterInFogOfWarList();
     }
 
@@ -20,7 +18,7 @@ public class LightSourcesDetector : MonoBehaviour
     {
         if (other.gameObject.layer != LayerMask.NameToLayer("Fireable")) return;
         
-        var fireableBehavior = other.gameObject.GetComponent<FireableBehavior>();
+        var fireableBehavior = other.gameObject.GetComponent<FireableLightSource>();
         fireableBehavior.UnregisterInFogOfWarList();
     }
 

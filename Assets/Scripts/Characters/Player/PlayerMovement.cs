@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour, IMovable
     private void OnEnable()
     {
         _inputActions ??= PlayerManager.Instance.InputActions;
-        SingOnInputActions();
+        SignOnInputActions();
     }
 
     private void Update()
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour, IMovable
         _controller.Move(direction);
     }
 
-    private void SingOnInputActions()
+    private void SignOnInputActions()
     {
         if (_inputActions == null) return;
         
@@ -50,11 +50,9 @@ public class PlayerMovement : MonoBehaviour, IMovable
         _inputActions.Player.Move.canceled += OnMoveCanceled;
         
         _inputActions.Player.Dash.started += OnDashStarted;
-
-        _inputActions.Enable();
     }
 
-    private void OnMoveStarted(InputAction.CallbackContext obj)
+    private void OnMoveStarted(InputAction.CallbackContext ctx)
     {
         _isMoving = true;
     }
@@ -108,8 +106,6 @@ public class PlayerMovement : MonoBehaviour, IMovable
         _inputActions.Player.Move.canceled -= OnMoveCanceled;
         
         _inputActions.Player.Dash.performed -= OnDashStarted;
-        
-        _inputActions?.Disable();
     }
 
     private void OnDisable()

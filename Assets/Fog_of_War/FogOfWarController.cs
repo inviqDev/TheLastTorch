@@ -66,7 +66,7 @@ public class FogOfWarController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Debug.Log($"total lights count : {_sources.Count}");
+        // Debug.Log($"total lights count : {_sources.Count}");
         
         var count = 0;
         for (var i = 0; i < _sources.Count && count < maxLights; i++)

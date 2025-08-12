@@ -2,56 +2,67 @@ using UnityEngine;
 
 public class TorchMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 14.0f;
+    [SerializeField] private Transform torchRoot;
+    [SerializeField] private float moveSpeed = 30.0f;
 
-    private Transform _torchRoot;
     private Vector3 _defaultTorchPosition;
     private Quaternion _defaultTorchRotation;
 
     private Vector3 _moveDirection;
-    private bool _isFlyingForward;
-    private bool _isFlyingBackward;
+    private bool _isLaunchedForward;
+    private bool _isReturningBack;
 
-    private void Awake()
+    private void Start()
     {
-        _torchRoot = transform.parent;
-        _defaultTorchPosition = transform.localPosition;
-        _defaultTorchRotation = transform.localRotation;
-
-        _isFlyingForward = false;
+        SetTorchDefaultSettings();
     }
 
     private void Update()
     {
-        if (_isFlyingForward)
+        if (!_isLaunchedForward && !_isReturningBack) return;
+
+        if (_isLaunchedForward)
         {
             transform.Translate(_moveDirection * (Time.deltaTime * moveSpeed));
             return;
         }
 
-        if (_isFlyingBackward)
+        if (_isReturningBack)
         {
-            if ((_torchRoot.position - transform.position).sqrMagnitude < 0.1f)
+            if ((torchRoot.position - transform.position).sqrMagnitude < 0.1f)
             {
-                transform.SetParent(_torchRoot);
-                transform.localPosition = _defaultTorchPosition;
-                transform.localRotation = _defaultTorchRotation;
-
-                _isFlyingForward = false;
-                _isFlyingBackward = false;
-                
+                SetTorchDefaultSettings();
                 return;
             }
 
-            _moveDirection = (_torchRoot.position - transform.position).normalized;
+            _moveDirection = (torchRoot.position - transform.position).normalized;
             transform.Translate(_moveDirection * (Time.deltaTime * moveSpeed));
         }
     }
 
+    private void SetTorchDefaultSettings()
+    {
+        transform.SetParent(torchRoot);
+        transform.localPosition = _defaultTorchPosition;
+        transform.localRotation = _defaultTorchRotation;
+
+        _isLaunchedForward = false;
+        _isReturningBack = false;
+    }
+
     public void LaunchTorch(Transform target)
     {
-        _isFlyingForward = true;
-        _isFlyingBackward = false;
+        if (_isReturningBack) return;
+
+        if (_isLaunchedForward)
+        {
+            // implement "Call torch back" method
+            // to return it back even in the middle of the path
+            return;
+        }
+
+        _isLaunchedForward = true;
+        _isReturningBack = false;
 
         _moveDirection = (target.position - transform.position).normalized;
         _moveDirection.y = 0;
@@ -61,7 +72,7 @@ public class TorchMovement : MonoBehaviour
 
     public void MoveTorchBackToRoot()
     {
-        _isFlyingForward = false;
-        _isFlyingBackward = true;
+        _isLaunchedForward = false;
+        _isReturningBack = true;
     }
 }
