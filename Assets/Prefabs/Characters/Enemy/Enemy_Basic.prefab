@@ -126,12 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809acab03a50485a9a3871d5ab6ec984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  maxHealth: 10
+  health: 50
   moveSpeed: 1
   gravity: -15
   damage: 10
   playerTag: Player
+  torchTag: Torch
 --- !u!114 &5693832668359519851
 MonoBehaviour:
   m_ObjectHideFlags: 0

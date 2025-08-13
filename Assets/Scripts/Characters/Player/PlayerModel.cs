@@ -12,4 +12,7 @@ public class PlayerModel : CharacterBaseModel
     
     [SerializeField] private float dashDuration = 0.5f;
     public float DashDuration => dashDuration;
+    
+    [SerializeField] private TorchModel torchModel;
+    public TorchModel TorchModel => torchModel;
 }

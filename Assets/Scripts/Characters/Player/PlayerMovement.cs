@@ -25,7 +25,9 @@ public class PlayerMovement : MonoBehaviour, IMovable
     
     private void OnEnable()
     {
-        _inputActions ??= PlayerManager.Instance.InputActions;
+        _inputActions ??= PlayerManager.Instance?.InputActions;
+        if (_inputActions == null) return;
+        
         SignOnInputActions();
     }
 

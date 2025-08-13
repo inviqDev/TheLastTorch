@@ -20,14 +20,15 @@ public class EnemyMovement : MonoBehaviour, IMovable
 
     private void Update()
     {
-        if (!PlayerManager.Instance.PlayerIsAlive) return;
-        
+        if (!_enemyModel.IsAlive && !PlayerManager.Instance.PlayerIsAlive) return;
         MoveInDirection((_playerTransform.position - transform.position).normalized);
     }
 
     public void MoveInDirection(Vector3 direction)
     {
+        if (!_enemyModel.IsAlive) enabled = false;
+        
         _moveDirection = new Vector3(direction.x, _enemyModel.Gravity, direction.z);
-        _controller.Move(_moveDirection * (_enemyModel.MoveSpeed * Time.deltaTime));
+        _controller?.Move(_moveDirection * (_enemyModel.MoveSpeed * Time.deltaTime));
     }
 }

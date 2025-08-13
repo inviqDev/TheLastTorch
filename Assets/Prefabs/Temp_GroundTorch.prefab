@@ -304,8 +304,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   torchTag: Torch
   lightSourcePoint: {fileID: 7164353163081471766}
-  gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  segments: 64
 --- !u!1001 &898725534713592821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -365,6 +363,10 @@ PrefabInstance:
     - target: {fileID: 7579959202696399152, guid: 2ae72c9a25708614da02e288613bb656, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004039080302603491, guid: 2ae72c9a25708614da02e288613bb656, type: 3}
+      propertyPath: radiusDecrement
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8490710744680117796, guid: 2ae72c9a25708614da02e288613bb656, type: 3}
       propertyPath: m_Enabled

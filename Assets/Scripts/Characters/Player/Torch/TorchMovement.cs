@@ -1,16 +1,25 @@
 using UnityEngine;
 
-public class TorchMovement : MonoBehaviour
+public enum TorchState
 {
+    InHand,
+    MovingToLight,
+    MovingToEnemy,
+    MovingBackward
+}
+
+public class TorchMovement : TorchModel
+{
+    [SerializeField] private AttackableEnemiesCollector enemiesCollector;
     [SerializeField] private Transform torchRoot;
-    [SerializeField] private float moveSpeed = 30.0f;
 
     private Vector3 _defaultTorchPosition;
     private Quaternion _defaultTorchRotation;
 
+    public TorchState State { get; private set; }
+
     private Vector3 _moveDirection;
-    private bool _isLaunchedForward;
-    private bool _isReturningBack;
+    private EnemyModel _currentEnemy;
 
     private void Start()
     {
@@ -19,60 +28,65 @@ public class TorchMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!_isLaunchedForward && !_isReturningBack) return;
-
-        if (_isLaunchedForward)
+        if (State == TorchState.InHand)
         {
-            transform.Translate(_moveDirection * (Time.deltaTime * moveSpeed));
-            return;
+            if (enemiesCollector.AttackableEnemies?.Count == 0) return;
+            _currentEnemy = enemiesCollector.GetClosestEnemy();
+
+            if (_currentEnemy)
+            {
+                State = TorchState.MovingToEnemy;
+                transform.SetParent(null);
+            }
         }
 
-        if (_isReturningBack)
+        if (State == TorchState.MovingToEnemy && _currentEnemy)
         {
-            if ((torchRoot.position - transform.position).sqrMagnitude < 0.1f)
+            _moveDirection = (_currentEnemy.transform.position - transform.position).normalized;
+        }
+
+        if (State == TorchState.MovingBackward)
+        {
+            if ((torchRoot.position - transform.position).sqrMagnitude < 1.0f)
             {
                 SetTorchDefaultSettings();
                 return;
             }
 
             _moveDirection = (torchRoot.position - transform.position).normalized;
-            transform.Translate(_moveDirection * (Time.deltaTime * moveSpeed));
         }
+
+        _moveDirection.y = 0.0f;
+        transform.Translate(_moveDirection * (moveSpeed * Time.deltaTime));
     }
 
-    private void SetTorchDefaultSettings()
+    public void LaunchToLightSource(Vector3 lightSourcePos)
     {
-        transform.SetParent(torchRoot);
-        transform.localPosition = _defaultTorchPosition;
-        transform.localRotation = _defaultTorchRotation;
-
-        _isLaunchedForward = false;
-        _isReturningBack = false;
-    }
-
-    public void LaunchTorch(Transform target)
-    {
-        if (_isReturningBack) return;
-
-        if (_isLaunchedForward)
+        if (State != TorchState.InHand)
         {
-            // implement "Call torch back" method
-            // to return it back even in the middle of the path
+            Debug.Log("Cannot be lauched : Not in hand state");
             return;
         }
 
-        _isLaunchedForward = true;
-        _isReturningBack = false;
+        State = TorchState.MovingToLight;
 
-        _moveDirection = (target.position - transform.position).normalized;
-        _moveDirection.y = 0;
+        _moveDirection = (lightSourcePos - transform.position).normalized;
+        _moveDirection.y = 0.0f;
 
         transform.SetParent(null);
     }
 
+    private void SetTorchDefaultSettings()
+    {
+        State = TorchState.InHand;
+
+        transform.SetParent(torchRoot);
+        transform.localPosition = _defaultTorchPosition;
+        transform.localRotation = _defaultTorchRotation;
+    }
+
     public void MoveTorchBackToRoot()
     {
-        _isLaunchedForward = false;
-        _isReturningBack = true;
+        State = TorchState.MovingBackward;
     }
 }

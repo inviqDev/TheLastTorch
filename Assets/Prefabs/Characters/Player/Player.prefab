@@ -550,13 +550,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  maxHealth: 100
   moveSpeed: 10
   gravity: -15
   damage: 10
   dashSpeed: 25
   dashCooldown: 0.4
   dashDuration: 0.2
+  torchModel: {fileID: 7199613568773777146}
 --- !u!114 &4854030337034112084
 MonoBehaviour:
   m_ObjectHideFlags: 0
