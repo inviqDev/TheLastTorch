@@ -1,67 +1,92 @@
 using UnityEngine;
 
-public class TorchMovement : MonoBehaviour
+public enum TorchState
 {
-    [SerializeField] private float moveSpeed = 14.0f;
+    InHand,
+    MovingToLight,
+    MovingToEnemy,
+    MovingBackward
+}
 
-    private Transform _torchRoot;
+public class TorchMovement : TorchModel
+{
+    [SerializeField] private AttackableEnemiesCollector enemiesCollector;
+    [SerializeField] private Transform torchRoot;
+
     private Vector3 _defaultTorchPosition;
     private Quaternion _defaultTorchRotation;
 
+    public TorchState State { get; private set; }
+
     private Vector3 _moveDirection;
-    private bool _isFlyingForward;
-    private bool _isFlyingBackward;
+    private EnemyModel _currentEnemy;
 
-    private void Awake()
+    private void Start()
     {
-        _torchRoot = transform.parent;
-        _defaultTorchPosition = transform.localPosition;
-        _defaultTorchRotation = transform.localRotation;
-
-        _isFlyingForward = false;
+        SetTorchDefaultSettings();
     }
 
     private void Update()
     {
-        if (_isFlyingForward)
+        if (State == TorchState.InHand)
         {
-            transform.Translate(_moveDirection * (Time.deltaTime * moveSpeed));
-            return;
+            if (enemiesCollector.AttackableEnemies?.Count == 0) return;
+            _currentEnemy = enemiesCollector.GetClosestEnemy();
+
+            if (_currentEnemy)
+            {
+                State = TorchState.MovingToEnemy;
+                transform.SetParent(null);
+            }
         }
 
-        if (_isFlyingBackward)
+        if (State == TorchState.MovingToEnemy && _currentEnemy)
         {
-            if ((_torchRoot.position - transform.position).sqrMagnitude < 0.1f)
-            {
-                transform.SetParent(_torchRoot);
-                transform.localPosition = _defaultTorchPosition;
-                transform.localRotation = _defaultTorchRotation;
+            _moveDirection = (_currentEnemy.transform.position - transform.position).normalized;
+        }
 
-                _isFlyingForward = false;
-                _isFlyingBackward = false;
-                
+        if (State == TorchState.MovingBackward)
+        {
+            if ((torchRoot.position - transform.position).sqrMagnitude < 1.0f)
+            {
+                SetTorchDefaultSettings();
                 return;
             }
 
-            _moveDirection = (_torchRoot.position - transform.position).normalized;
-            transform.Translate(_moveDirection * (Time.deltaTime * moveSpeed));
+            _moveDirection = (torchRoot.position - transform.position).normalized;
         }
+
+        _moveDirection.y = 0.0f;
+        transform.Translate(_moveDirection * (moveSpeed * Time.deltaTime));
     }
 
-    public void LaunchTorch(Transform target)
+    public void LaunchToLightSource(Vector3 lightSourcePos)
     {
-        _isFlyingForward = true;
-        _isFlyingBackward = false;
+        if (State != TorchState.InHand)
+        {
+            Debug.Log("Cannot be lauched : Not in hand state");
+            return;
+        }
 
-        _moveDirection = (target.position - transform.position).normalized;
-        _moveDirection.y = 0;
+        State = TorchState.MovingToLight;
+
+        _moveDirection = (lightSourcePos - transform.position).normalized;
+        _moveDirection.y = 0.0f;
 
         transform.SetParent(null);
     }
 
+    private void SetTorchDefaultSettings()
+    {
+        State = TorchState.InHand;
+
+        transform.SetParent(torchRoot);
+        transform.localPosition = _defaultTorchPosition;
+        transform.localRotation = _defaultTorchRotation;
+    }
+
     public void MoveTorchBackToRoot()
     {
-        _isFlyingForward = false;
-        _isFlyingBackward = true;
+        State = TorchState.MovingBackward;
     }
 }

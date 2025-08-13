@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class FogOfWarController : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer meshRenderer;
     public static FogOfWarController Instance { get; private set; }
 
     [Header("Shader Limits")]
@@ -28,6 +29,8 @@ public class FogOfWarController : MonoBehaviour
 
     private void Awake()
     {
+        meshRenderer.enabled = true;
+        
         if (Instance && Instance != this)
         {
             Destroy(gameObject); 
@@ -51,18 +54,20 @@ public class FogOfWarController : MonoBehaviour
         if (Instance == this) Instance = null;
     }
 
-    public void Register(LightSource src)
+    public void Register(LightSource source)
     {
-        if (!_sources.Contains(src)) _sources.Add(src);
+        if (!_sources.Contains(source)) _sources.Add(source);
     }
 
-    public void Unregister(LightSource src)
+    public void Unregister(LightSource source)
     {
-        _sources.Remove(src);
+        _sources.Remove(source);
     }
 
     private void LateUpdate()
     {
+        // Debug.Log($"total lights count : {_sources.Count}");
+        
         var count = 0;
         for (var i = 0; i < _sources.Count && count < maxLights; i++)
         {
@@ -71,6 +76,12 @@ public class FogOfWarController : MonoBehaviour
 
             var p = s.transform.position;
             _posBuf[count] = new Vector4(p.x, p.y, p.z, 0f);
+
+            if (_sources.Count == 1 && s.Radius < 3.0f)
+            {
+                Debug.Log("You fall into the completely darkness.. y-y-y-y-y-y ! :D");
+                s.TurnOffLights();
+            }
             _radBuf[count] = s.Radius;
             count++;
         }

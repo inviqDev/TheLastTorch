@@ -1,60 +1,82 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    [Header("Torch throwing settings")]
-    [SerializeField] private TorchMovement torchMovement;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private LayerMask targetMask;
+    [Header("Light source settings")] [SerializeField]
+    private LightSource lightSource;
     
-    [Header("Light source settings")]
-    [SerializeField] private LightSource lightSource;
-
+    public PlayerModel PlayerModel { get; private set; }
+    
     private Input_Actions _inputActions;
+    public Input_Actions InputActions => _inputActions ??= new Input_Actions();
 
+    private List<EnemyModel> _attackableEnemies;
+    
     public bool PlayerIsAlive { get; private set; }
+    public bool IsAbleToAttack {get; private set;}
 
     protected override void Awake()
     {
         base.Awake();
         
+        PlayerModel = GetComponent<PlayerModel>();
+
         PlayerIsAlive = true;
+        _inputActions ??= new Input_Actions();
+        
+        _attackableEnemies ??= new List<EnemyModel>();
+    }
+
+    public void AddAttackableEnemy(EnemyModel enemy)
+    {
+        _attackableEnemies?.Add(enemy);
+        IsAbleToAttack = true;
+    }
+
+    public void RemoveAllAttackableEnemy(EnemyModel enemy)
+    {
+        _attackableEnemies?.Remove(enemy);
+        IsAbleToAttack = _attackableEnemies?.Count == 0;
+    }
+
+    public EnemyModel GetClosestAttackableEnemy()
+    {
+        if (_attackableEnemies?.Count == 0) return null;
+        
+        var closestEnemy = _attackableEnemies?[0];
+        var minSqrDistance = float.MaxValue;
+        
+        for (var i = 0; i < _attackableEnemies?.Count; i++)
+        {
+            var distance = Vector3.SqrMagnitude(_attackableEnemies[i].transform.position - transform.position);
+            if (!(distance < minSqrDistance)) continue;
+            
+            minSqrDistance = distance;
+            closestEnemy = _attackableEnemies[i];
+        }
+
+        return closestEnemy;
     }
 
     private void Start()
     {
-        lightSource.TurnOnTorch();
+        lightSource.TurnOnLights();
     }
 
     private void OnEnable()
     {
         _inputActions ??= new Input_Actions();
-        
-        _inputActions.Player.ThrowTorch.performed += OnThrowTorchPerformed;
         _inputActions.Enable();
-    }
-
-    private void OnThrowTorchPerformed(InputAction.CallbackContext ctx)
-    {
-        var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (!Physics.Raycast(ray, out var hit, 100.0f, targetMask)) return;
-        torchMovement.LaunchTorch(hit.transform);
     }
 
     private void OnDisable()
     {
-        if (_inputActions == null) return;
-        
-        _inputActions.Player.ThrowTorch.performed -= OnThrowTorchPerformed;
-        _inputActions.Enable();
+        _inputActions?.Enable();
     }
 
     private void OnDestroy()
     {
-        if (_inputActions == null) return;
-        
-        _inputActions.Player.ThrowTorch.performed -= OnThrowTorchPerformed;
-        _inputActions.Enable();
+        _inputActions?.Enable();
     }
 }
